@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// stub 攝截層的錯誤
+/// stub 攔截層的錯誤
 ///
 /// 未註冊的請求是大聲失敗、不是默默放行——characterization 測試裡
 /// 任何真的打出去的網路請求都是決定性漏洞。
