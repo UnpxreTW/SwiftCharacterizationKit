@@ -98,7 +98,7 @@ public enum FixtureLoader {
 		return (fixtureURL.deletingPathExtension().lastPathComponent, fileExtension)
 	}
 
-	/// 蔭集搜尋範圍：已載入 bundle、程式碼所在 bundle、main bundle，
+	/// 蒐集搜尋範圍：已載入 bundle、程式碼所在 bundle、main bundle，
 	/// 加上各自內部（`resourceURL`）與同層目錄的 `.bundle`（SwiftPM resource bundle 實體形——
 	/// Xcode 佈局放 bundle 內、`swift test` 佈局放建置產物目錄與測試 bundle 同層）
 	private static func discoveredBundles() -> [Bundle] {
