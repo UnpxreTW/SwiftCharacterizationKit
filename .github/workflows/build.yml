@@ -25,6 +25,10 @@ jobs:
       - name: xcodebuild build（iOS Simulator）
         # -skipPackagePluginValidation：xcodebuild 對套件相依的 build-tool plugin（SwiftStyleLint）
         # 需要互動核准，CI 無 UI 會卡在 "Validate plug-in" 失敗——CI 用途安全（來源即我方 SwiftStyleKit）。
-        # scheme 為套件名本身（無 -Package 後綴）：SwiftStyleKit 只宣告 macOS 平台，
-        # xcodebuild 對套件圖計算 scheme 平台交集時只留下單一 scheme「SwiftCharacterizationKit」。
-        run: xcodebuild build -scheme SwiftCharacterizationKit -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
+        # scheme 由 xcodebuild -list 動態解析：套件自動生成的 scheme 命名隨 Xcode 版本而異，寫死必隨版本破。
+        # destination 不釘 OS：runner 映像檔的模擬器 runtime 版本與 Xcode 版號不必然一致。
+        run: |
+          LIST_JSON=$(xcodebuild -list -json 2>/dev/null)
+          SCHEME=$(echo "$LIST_JSON" | jq -r '.workspace.schemes | (map(select(endswith("-Package"))) + .)[0]')
+          echo "schemes: $(echo "$LIST_JSON" | jq -c '.workspace.schemes') -> using: $SCHEME"
+          xcodebuild build -scheme "$SCHEME" -destination 'platform=iOS Simulator,name=iPhone 17' -skipPackagePluginValidation
