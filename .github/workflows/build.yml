@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2026 Unpxre (GitHub: UnpxreTW)
+# SPDX-License-Identifier: Apache-2.0
+
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Pin Xcode 26.3
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.3'
+      - name: swift build（macOS）
+        run: swift build
+      - name: xcodebuild build（iOS Simulator）
+        # -skipPackagePluginValidation：xcodebuild 對套件相依的 build-tool plugin（SwiftStyleLint）
+        # 需要互動核准，CI 無 UI 會卡在 "Validate plug-in" 失敗——CI 用途安全（來源即我方 SwiftStyleKit）。
+        run: xcodebuild build -scheme SwiftCharacterizationKit-Package -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation

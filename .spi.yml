@@ -1,0 +1,11 @@
+# Swift Package Index 建置設定：宣告三個 library target 的 DocC 文件產出。
+# 參考 https://github.com/SwiftPackageIndex/SPIManifest
+
+version: 1
+builder:
+  configs:
+    - documentation_targets:
+        # 第一項是文件站的 landing（預設）target
+        - CharacterizationSupport
+        - FixtureSupport
+        - SnapshotCore
