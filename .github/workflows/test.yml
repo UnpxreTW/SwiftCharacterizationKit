@@ -27,4 +27,5 @@ jobs:
         run: swift test
       - name: xcodebuild test（iOS Simulator）
         # -skipPackagePluginValidation：理由同 build.yml。
-        run: xcodebuild test -scheme SwiftCharacterizationKit-Package -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
+        # scheme 為套件名本身（無 -Package 後綴）：理由同 build.yml。
+        run: xcodebuild test -scheme SwiftCharacterizationKit -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
