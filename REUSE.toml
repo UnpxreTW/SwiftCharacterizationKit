@@ -1,0 +1,30 @@
+# REUSE 設定：批次涵蓋無法掛 inline SPDX header 的 manifest / 設定 / 文件檔，
+# 與內容不可加註的測試資產（fixture JSON、golden 檔——golden 是逐 byte 比對的規格檔）。
+# 已掛 header 的 .swift 原始碼不在此列；授權全文見 LICENSES/Apache-2.0.txt。
+#
+# 已知工具誤判（reuse 6.2.0）：encoding 偵測只取檔案前 2048 bytes、未對齊 UTF-8
+# 字元邊界——若第 2048 byte 恰落在中文字中間，整檔被誤判 binary 而回報 missing
+# （實測 Sources/SnapshotCore/UnifiedDiffer.swift 曾中獎；檔頭本身合規）。
+# lint 出現單檔 missing 時先驗這點、勿急著動檔頭。
+version = 1
+
+[[annotations]]
+path = [
+	".github/dependabot.yml",
+	".gitignore",
+	".spi.yml",
+	"docs/CODEOWNERS",
+	"docs/SECURITY.md",
+	"NOTICE",
+	"Package.swift",
+	"README.md",
+	# 有合規檔頭、僅因上述 2048-byte 誤判被漏抓——這些行是冗餘覆蓋、非豁免
+	"Sources/SnapshotCore/Entity/GoldenLocation.swift",
+	"Sources/SnapshotCore/GoldenStore.swift",
+	"Sources/SnapshotCore/UnifiedDiffer.swift",
+	"Tests/CharacterizationSupportTests/__Golden__/**",
+	"Tests/FixtureSupportTests/Fixtures/sample-user.json",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Unpxre (GitHub: UnpxreTW)"
+SPDX-License-Identifier = "Apache-2.0"

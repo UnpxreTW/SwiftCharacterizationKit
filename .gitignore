@@ -1,0 +1,11 @@
+.DS_Store
+/.build
+xcuserdata/
+DerivedData/
+.swiftpm/
+
+# library package：不釘死 consumer 看不到的 resolved 版本、避免無意義 churn
+Package.resolved
+
+# characterization 產物：mismatch 時寫出的 .actual 不入庫（golden 本體要入庫）
+**/__Golden__/**/*.actual.*
