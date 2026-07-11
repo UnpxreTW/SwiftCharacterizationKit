@@ -1,3 +1,4 @@
+
 # SPDX-FileCopyrightText: 2026 Unpxre (GitHub: UnpxreTW)
 # SPDX-License-Identifier: Apache-2.0
 
@@ -25,4 +26,6 @@ jobs:
       - name: xcodebuild build（iOS Simulator）
         # -skipPackagePluginValidation：xcodebuild 對套件相依的 build-tool plugin（SwiftStyleLint）
         # 需要互動核准，CI 無 UI 會卡在 "Validate plug-in" 失敗——CI 用途安全（來源即我方 SwiftStyleKit）。
-        run: xcodebuild build -scheme SwiftCharacterizationKit-Package -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
+        # scheme 為套件名本身（無 -Package 後綴）：SwiftStyleKit 只宣告 macOS 平台，
+        # xcodebuild 對套件圖計算 scheme 平台交集時只留下單一 scheme「SwiftCharacterizationKit」。
+        run: xcodebuild build -scheme SwiftCharacterizationKit -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
