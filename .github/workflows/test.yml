@@ -27,5 +27,9 @@ jobs:
         run: swift test
       - name: xcodebuild test（iOS Simulator）
         # -skipPackagePluginValidation：理由同 build.yml。
-        # scheme 為套件名本身（無 -Package 後綴）：理由同 build.yml。
-        run: xcodebuild test -scheme SwiftCharacterizationKit -destination 'platform=iOS Simulator,OS=26.3,name=iPhone 17' -skipPackagePluginValidation
+        # scheme 動態解析與不釘 OS：理由同 build.yml。
+        run: |
+          LIST_JSON=$(xcodebuild -list -json 2>/dev/null)
+          SCHEME=$(echo "$LIST_JSON" | jq -r '.workspace.schemes | (map(select(endswith("-Package"))) + .)[0]')
+          echo "schemes: $(echo "$LIST_JSON" | jq -c '.workspace.schemes') -> using: $SCHEME"
+          xcodebuild test -scheme "$SCHEME" -destination 'platform=iOS Simulator,name=iPhone 17' -skipPackagePluginValidation
