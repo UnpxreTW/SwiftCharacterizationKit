@@ -31,5 +31,4 @@ public struct DevicePreset: Sendable {
 		self.name = name
 		self.size = size
 	}
-
 }

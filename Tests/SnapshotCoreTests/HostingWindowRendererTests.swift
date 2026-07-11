@@ -15,7 +15,8 @@ import UIKit
 private final class HostingWindowRendererTests {
 
 	/// VC 渲染後 root view 尺寸等於 preset 畫布、window 掛載正確。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `renders view controller at preset canvas size`() {
 		let viewController: UIViewController = .init()
 		viewController.view.backgroundColor = .white
@@ -25,7 +26,8 @@ private final class HostingWindowRendererTests {
 	}
 
 	/// 單一 view 渲染走中性容器、rootView 即傳入視圖、frame 填滿自訂畫布。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `renders plain view as root of neutral container`() {
 		let label: UILabel = .init()
 		label.text = "hello"

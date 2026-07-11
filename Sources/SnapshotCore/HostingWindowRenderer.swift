@@ -78,7 +78,6 @@ public struct HostingWindowRenderer {
 	public init(canvasSize: CGSize) {
 		self.canvasSize = canvasSize
 	}
-
 }
 
 #endif

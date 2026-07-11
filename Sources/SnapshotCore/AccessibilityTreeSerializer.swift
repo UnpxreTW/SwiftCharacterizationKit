@@ -158,7 +158,6 @@ public struct AccessibilityTreeSerializer {
 		}
 		return nil
 	}
-
 }
 
 #endif

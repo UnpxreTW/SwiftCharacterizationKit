@@ -28,7 +28,8 @@ import UIKit
 private final class AccessibilitySpikeTests {
 
 	/// 釘住現況：unhosted process 裡 SwiftUI 的 a11y 元素不可列舉（空樹）。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `swiftui accessibility elements are not enumerable in unhosted test process`() {
 		let hostingController: UIHostingController = .init(rootView: SpikeScreen())
 		let surface = HostingWindowRenderer().render(viewController: hostingController)
@@ -52,7 +53,8 @@ private final class AccessibilitySpikeTests {
 	}
 
 	/// 診斷用：hosting 子樹的原始結構 dump（class／subviews／a11y 元素數）留檔測試 log。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `diagnostic dump of hosting subtree`() {
 		let surface = HostingWindowRenderer().render(view: SpikeScreen())
 		var lines: [String] = []

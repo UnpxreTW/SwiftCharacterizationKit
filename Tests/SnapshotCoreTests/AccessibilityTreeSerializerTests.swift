@@ -15,7 +15,8 @@ import UIKit
 private final class AccessibilityTreeSerializerTests {
 
 	/// identifier／label／value／traits／frame 全欄位輸出、欄位順序固定。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `collects identifier label value traits and frame`() {
 		let containerView: UIView = .init(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
 		let elementView: UIView = .init(frame: CGRect(x: 10, y: 20, width: 100, height: 44))
@@ -34,7 +35,8 @@ private final class AccessibilityTreeSerializerTests {
 	}
 
 	/// 帶 identifier 的非元素容器也輸出、其子元素縮排一層。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `emits identified container with indented children`() {
 		let groupView: UIView = .init(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
 		groupView.accessibilityIdentifier = "form-group"
@@ -51,7 +53,8 @@ private final class AccessibilityTreeSerializerTests {
 	}
 
 	/// 隱藏視圖整枝略過——看不見的東西不屬於輔助功能樹。
-	@Test @MainActor
+	@Test
+	@MainActor
 	func `skips hidden branches`() {
 		let containerView: UIView = .init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 		let hiddenBranch: UIView = .init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))

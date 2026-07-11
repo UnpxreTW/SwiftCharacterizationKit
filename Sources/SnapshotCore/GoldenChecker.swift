@@ -58,5 +58,4 @@ public struct GoldenChecker {
 		self.store = store
 		self.differ = differ
 	}
-
 }

@@ -84,5 +84,4 @@ public struct GoldenLocation: Equatable, Sendable {
 		self.actualFileURL = goldenDirectoryURL
 			.appending(path: "\(stem).actual.\(fileExtension)", directoryHint: .notDirectory)
 	}
-
 }
