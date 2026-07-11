@@ -12,6 +12,7 @@ let package: Package = .init(
 	],
 	products: [
 		.library(name: "SnapshotCore", targets: ["SnapshotCore"]),
+		.library(name: "CharacterizationSupport", targets: ["CharacterizationSupport"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/UnpxreTW/SwiftStyleKit.git", from: "2.0.1"),
@@ -24,6 +25,17 @@ let package: Package = .init(
 		.testTarget(
 			name: "SnapshotCoreTests",
 			dependencies: ["SnapshotCore"],
+			plugins: [.plugin(name: "SwiftStyleLint", package: "SwiftStyleKit")]
+		),
+		.target(
+			name: "CharacterizationSupport",
+			dependencies: ["SnapshotCore"],
+			plugins: [.plugin(name: "SwiftStyleLint", package: "SwiftStyleKit")]
+		),
+		.testTarget(
+			name: "CharacterizationSupportTests",
+			dependencies: ["CharacterizationSupport"],
+			exclude: ["__Golden__"],
 			plugins: [.plugin(name: "SwiftStyleLint", package: "SwiftStyleKit")]
 		),
 	],
