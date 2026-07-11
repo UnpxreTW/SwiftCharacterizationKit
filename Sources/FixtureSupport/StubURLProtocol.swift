@@ -9,15 +9,15 @@
 import Foundation
 import Synchronization
 
-/// `URLProtocol` 攝截層：把 URLSession 請求導向已註冊的 fixture 回應
+/// `URLProtocol` 攔截層：把 URLSession 請求導向已註冊的 fixture 回應
 ///
 /// 使用方式：以 ``sessionConfiguration`` 建 `URLSession`（或把它注入受測物的
 /// session 建構 seam），再以 ``setStub(_:for:)`` 逐 URL 註冊回應。
-/// 該 configuration 下所有請求都被攝截：未註冊的 URL 直接回錯誤、不放行真網路——
+/// 該 configuration 下所有請求都被攔截：未註冊的 URL 直接回錯誤、不放行真網路——
 /// 見 ``StubURLProtocolError``。URL 比對採 `absoluteString` 完全一致。
 public final class StubURLProtocol: URLProtocol {
 
-	/// 產生掛好本攝截層的 ephemeral session configuration
+	/// 產生掛好本攔截層的 ephemeral session configuration
 	public static var sessionConfiguration: URLSessionConfiguration {
 		let configuration: URLSessionConfiguration = .ephemeral
 		configuration.protocolClasses = [StubURLProtocol.self]
@@ -36,7 +36,7 @@ public final class StubURLProtocol: URLProtocol {
 
 	// MARK: URLProtocol
 
-	/// 攝截所有請求（本協定只該掛在 ``sessionConfiguration``、不做全域註冊）
+	/// 攔截所有請求（本協定只該掛在 ``sessionConfiguration``、不做全域註冊）
 	override public static func canInit(with request: URLRequest) -> Bool {
 		true
 	}
