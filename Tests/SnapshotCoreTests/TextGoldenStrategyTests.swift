@@ -19,7 +19,6 @@ private final class TextGoldenStrategyTests {
 
 		/// 報表原文
 		let body: String
-
 	}
 
 	/// `String` 主體原文入檔、不做任何正規化（含尾換行）。
