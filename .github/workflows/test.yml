@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2026 Unpxre (GitHub: UnpxreTW)
+# SPDX-License-Identifier: Apache-2.0
+
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    # CHARACTERIZATION_RECORD 絕不在此設定——CI 只驗 golden、不錄 golden。
+    env:
+      SWIFTSTYLELINT_STRICT: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - name: Pin Xcode 26.3
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26.3'
+      - name: swift test（macOS）
+        run: swift test
+      - name: xcodebuild test（iOS Simulator）
+        # -skipPackagePluginValidation：理由同 build.yml。
+        # scheme 動態解析與不釘 OS：理由同 build.yml。
+        run: |
+          LIST_JSON=$(xcodebuild -list -json 2>/dev/null)
+          SCHEME=$(echo "$LIST_JSON" | jq -r '.workspace.schemes | (map(select(endswith("-Package"))) + .)[0]')
+          echo "schemes: $(echo "$LIST_JSON" | jq -c '.workspace.schemes') -> using: $SCHEME"
+          xcodebuild test -scheme "$SCHEME" -destination 'platform=iOS Simulator,name=iPhone 17' -skipPackagePluginValidation
